@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PhishGuard Dashboard</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body class="light-theme">
+    <div class="app-container">
+        <!-- Sidebar -->
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <div class="logo-container">
+                    <i class="fa-solid fa-shield-halved logo-icon"></i>
+                    <h2><span class="text-blue">Phish</span><span class="text-green">Guard</span></h2>
+                </div>
+                <p class="logo-tagline">Stay Safe. Stay Secure.</p>
+            </div>
+            
+            <ul class="nav-menu">
+                <li class="nav-item active" data-target="dashboard">
+                    <i class="fa-solid fa-house"></i> Dashboard
+                </li>
+                <li class="nav-item" data-target="url-checker">
+                    <i class="fa-solid fa-link"></i> URL Checker
+                </li>
+                <li class="nav-item" data-target="email-checker">
+                    <i class="fa-regular fa-envelope"></i> Email Checker
+                </li>
+                <li class="nav-item" data-target="scan-history">
+                    <i class="fa-solid fa-clock-rotate-left"></i> Scan History
+                </li>
+                <li class="nav-item" data-target="about">
+                    <i class="fa-solid fa-circle-info"></i> About
+                </li>
+            </ul>
+
+            <div class="sidebar-footer">
+                <div class="safety-tip">
+                    <h4 class="tip-title"><i class="fa-solid fa-lightbulb"></i> Tip for Safety</h4>
+                    <p>Always check the URL before clicking. Never share personal information on untrusted websites.</p>
+                </div>
+                <div class="copyright">
+                    © 2025 PhishGuard<br>All rights reserved.
+                </div>
+            </div>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <header class="top-header">
+                <div class="header-titles">
+                    <h1>Welcome to <span class="text-blue">Phish</span><span class="text-green">Guard</span></h1>
+                    <p class="subtitle">AI-Powered Phishing Link & Email Detector</p>
+                </div>
+                <div class="header-actions">
+                    <button id="theme-toggle" class="icon-btn" title="Toggle Theme">
+                        <i class="fa-solid fa-moon"></i>
+                    </button>
+                    <button class="btn secondary-btn" id="history-btn">
+                        <i class="fa-solid fa-clock-rotate-left"></i> Scan History
+                    </button>
+                </div>
+            </header>
+
+            <div class="cards-container" id="cards-container">
+                <!-- URL Checker Card -->
+                <div class="card" id="url-card">
+                    <div class="card-header">
+                        <h3><i class="fa-solid fa-link"></i> URL Checker</h3>
+                        <p class="card-desc">Enter a URL to check if it is safe or a phishing site.</p>
+                    </div>
+                    <div class="card-body">
+                        <div class="input-group">
+                            <input type="text" id="url-input" placeholder="http://bankofindia-secure-login.com">
+                            <button id="check-url-btn" class="btn action-btn btn-blue">
+                                <i class="fa-solid fa-magnifying-glass"></i> Check URL
+                            </button>
+                        </div>
+                        <div id="url-result" class="result-box hidden">
+                            <!-- Injected content -->
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Email Checker Card -->
+                <div class="card" id="email-card">
+                    <div class="card-header">
+                        <h3><i class="fa-regular fa-envelope"></i> Email Checker</h3>
+                        <p class="card-desc">Paste your email content to check for phishing signs.</p>
+                    </div>
+                    <div class="card-body">
+                        <div class="input-group">
+                            <textarea id="email-input" placeholder="Subject: URGENT: Verify your account now!&#10;&#10;Dear Customer,&#10;We noticed an unusual login to your account.&#10;Please click the link below to verify your account immediately,&#10;otherwise your account will be suspended.&#10;&#10;http://secure-login-bank.com/verify&#10;&#10;Thank you."></textarea>
+                            <button id="check-email-btn" class="btn action-btn btn-green">
+                                <i class="fa-solid fa-magnifying-glass"></i> Check Email
+                            </button>
+                        </div>
+                        <div id="email-result" class="result-box hidden">
+                            <!-- Injected content -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- History Section -->
+            <section class="history-section" id="history-section">
+                <div class="section-header">
+                    <div class="section-title">
+                        <i class="fa-regular fa-clipboard"></i> 
+                        <h2>Recent Scan History</h2>
+                    </div>
+                    <button class="btn view-all-btn">View All</button>
+                </div>
+                <div class="table-container">
+                    <table class="history-table">
+                        <thead>
+                            <tr>
+                                <th>Type</th>
+                                <th>Input</th>
+                                <th>Result</th>
+                                <th>Score</th>
+                                <th>Date & Time</th>
+                            </tr>
+                        </thead>
+                        <tbody id="history-body">
+                            <!-- Injected rows -->
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+
+            <!-- About Section -->
+            <section class="history-section hidden" id="about-section">
+                <div class="section-header">
+                    <div class="section-title">
+                        <i class="fa-solid fa-circle-info"></i> 
+                        <h2>About PhishGuard</h2>
+                    </div>
+                </div>
+                <div class="table-container" style="padding: 1rem 0.5rem; line-height: 1.6; color: var(--text-muted);">
+                    <p>PhishGuard is an AI-powered phishing link and email detector designed to help users identify potentially malicious content before they click.</p>
+                    <p style="margin-top: 1rem;">This tool checks for suspicious keywords, missing secure protocols, hidden IP addresses, urgent language, and generic greetings to determine the safety of an input.</p>
+                    <p style="margin-top: 1rem;">Version: 1.0.0</p>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <script src="{{ url_for('static', filename='script.js') }}"></script>
+</body>
+</html>
